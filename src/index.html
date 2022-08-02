@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cut Stickers</title>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<!------------ ARTBOARD ------------>
+		<section class="artboard">
+			<div class="artboard__container">
+				<div class="artboard__btn-wrap">
+					<button
+						class="artboard__btn hover-light"
+						id="addBtn"
+						onclick="addItem(currOutputObj)"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="1em"
+							height="1em"
+							viewBox="0 0 36 36"
+						>
+							<circle
+								cx="13.33"
+								cy="29.75"
+								r="2.25"
+								fill="currentColor"
+								class="clr-i-outline--badged clr-i-outline-path-1--badged"
+							/>
+							<circle
+								cx="27"
+								cy="29.75"
+								r="2.25"
+								fill="currentColor"
+								class="clr-i-outline--badged clr-i-outline-path-2--badged"
+							/>
+							<path
+								fill="currentColor"
+								d="M22.57 7a7.52 7.52 0 0 1-.07-1a7.52 7.52 0 0 1 .07-1H11.49l.65 2Z"
+								class="clr-i-outline--badged clr-i-outline-path-3--badged"
+							/>
+							<path
+								fill="currentColor"
+								d="M30 13.5h-.42L28.33 19h-15L8.76 4.53a1 1 0 0 0-.66-.65L4 2.62a1 1 0 1 0-.59 1.92L7 5.64l4.59 14.5l-1.64 1.34l-.13.13A2.66 2.66 0 0 0 9.74 25A2.75 2.75 0 0 0 12 26h16.69a1 1 0 0 0 0-2H11.84a.67.67 0 0 1-.56-1l2.41-2h15.44a1 1 0 0 0 1-.78l1.57-6.91a7.51 7.51 0 0 1-1.7.19Z"
+								class="clr-i-outline--badged clr-i-outline-path-4--badged"
+							/>
+							<circle
+								cx="30"
+								cy="6"
+								r="5"
+								fill="currentColor"
+								class="clr-i-outline--badged clr-i-outline-path-5--badged clr-i-badge"
+							/>
+						</svg>
+					</button>
+				</div>
+				<div class="artboard__textbox">
+					<span class="artboard__width" id="artWidth">800mm</span>
+					<span class="artboard__height" id="artHeight">100mm</span>
+					<div
+						data-clr="black"
+						data-font="font1"
+						class="artboard__text"
+						id="textOutput"
+					>
+						Placeholder Text
+					</div>
+				</div>
+			</div>
+		</section>
+		<!------------ INPUTS ------------>
+		<section class="inputs">
+			<div class="inputs__container">
+				<div class="inputs__header">
+					<p class="inputs__header--1">INPUT FIELDS</p>
+					<p class="inputs__header--2">*MIN ORDERS APPLY</p>
+				</div>
+				<input
+					class="inputs__text"
+					type="text"
+					placeholder="type text..."
+					id="inputText"
+				/>
+				<div class="inputs__select-container">
+					<div for="" class="inputs__select-container-label">Options:</div>
+					<select class="inputs__font" name="" id="inputFont">
+						<option disabled selected>--FONT--</option>
+						<option value="">Font 1</option>
+						<option value="">Font 2</option>
+						<option value="">Font 3</option>
+						<option value="">Font 4</option>
+					</select>
+					<select class="inputs__color" name="" id="inputColor">
+						<option disabled selected>--COLOUR--</option>
+						<option value="black">Black</option>
+						<option value="white">White</option>
+						<option value="blue">Blue</option>
+						<option value="pink">Pink</option>
+					</select>
+					<select class="inputs__size" name="" id="inputSize">
+						<option disabled selected>--SIZE--</option>
+						<option
+							data-id="1"
+							data-size="200x31mm"
+							data-cost="6.90"
+							data-min="8"
+						>
+							200x31mm | $6.90ea | min 8
+						</option>
+						<option
+							data-id="2"
+							data-size="300x38mm"
+							data-cost="9.15"
+							data-min="6"
+						>
+							300x38mm | $9.15ea | min 6
+						</option>
+						<option
+							data-id="3"
+							data-size="450x56mm"
+							data-cost="27.50"
+							data-min="2"
+						>
+							450x56mm | $27.50ea | min 2
+						</option>
+						<option
+							data-id="4"
+							data-size="800x100mm"
+							data-cost="65"
+							data-min="1"
+						>
+							800x100mm | $65ea | no min
+						</option>
+					</select>
+				</div>
+			</div>
+		</section>
+		<!------------ INVOICE ------------>
+		<section id="invoiceSection" class="invoice">
+			<!-- HEADER -->
+			<div id="invoiceHeader" class="invoice__header">
+				<span class="black-space"></span>
+				<span class="invoice__description">description</span>
+				<span class="invoice__qty">Qty</span>
+				<span class="invoice__cost" id="invoiceTotalCost">$</span>
+			</div>
+			<!-- ITEM -->
+		</section>
+		<div id="copyContainer" class="copy__container">
+			<button
+				id="copyBtn"
+				class="copy__button hover-dark"
+				onclick="copyInvoice(invoiceObj)"
+			>
+				Copy Invoice To Clipboard
+			</button>
+			<button id="checkoutBtn" class="checkout-btn hover-light">
+				Checkout
+
+				<svg
+					class="checkout-btn--icon"
+					xmlns="http://www.w3.org/2000/svg"
+					width="1em"
+					height="1em"
+					viewBox="0 0 36 36"
+				>
+					<circle
+						cx="13.33"
+						cy="29.75"
+						r="2.25"
+						class="clr-i-outline clr-i-outline-path-1"
+					/>
+					<circle
+						cx="27"
+						cy="29.75"
+						r="2.25"
+						class="clr-i-outline clr-i-outline-path-2"
+					/>
+					<path
+						d="M33.08 5.37a1 1 0 0 0-.77-.37H11.49l.65 2H31l-2.67 12h-15L8.76 4.53a1 1 0 0 0-.66-.65L4 2.62a1 1 0 1 0-.59 1.92L7 5.64l4.59 14.5l-1.64 1.34l-.13.13A2.66 2.66 0 0 0 9.74 25A2.75 2.75 0 0 0 12 26h16.69a1 1 0 0 0 0-2H11.84a.67.67 0 0 1-.56-1l2.41-2h15.44a1 1 0 0 0 1-.78l3.17-14a1 1 0 0 0-.22-.85Z"
+						class="clr-i-outline clr-i-outline-path-3"
+					/>
+				</svg>
+			</button>
+		</div>
+		<script rel="text/javascript" src="app.js"></script>
+	</body>
+</html>

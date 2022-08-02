@@ -1,0 +1,108 @@
+.artboard {
+	max-width: var(--size-lg);
+	padding: var(--pad-md);
+	margin: 0 auto;
+
+	&__container {
+		width: 100%;
+		min-height: var(--size-sm);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 5px;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		background-color: var(--clr-white-50);
+		border: var(--border-primary);
+		font-size: var(--font-size-lg);
+		position: relative;
+		box-shadow: var(--box-shadow);
+	}
+	&__btn-wrap {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: var(--pad-sm);
+		& button {
+			--btn-width: 6rem;
+			width: var(--btn-width);
+			border-radius: 10px;
+			background-color: var(--clr-green);
+			aspect-ratio: 1/1;
+			box-shadow: var(--box-shadow);
+			border: var(--border-primary);
+			font-size: var(--font-size-lg);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	&__textbox {
+		position: relative;
+		border-top: 1px solid var(--clr-black);
+		border-left: 1px solid var(--clr-black);
+	}
+	&__width {
+		position: absolute;
+		top: -60%;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: var(--font-size-md);
+	}
+	&__height {
+		position: absolute;
+		top: 50%;
+		right: 102%;
+		transform: translateY(-50%);
+		font-size: var(--font-size-md);
+	}
+	&__text {
+		display: inline-block;
+		text-align: center;
+		// font-size: var(--font-size-xlg);
+		font-size: calc(var(--font-size-xlg) + 2vw);
+		padding: var(--pad-sm);
+	}
+
+	// clr font data
+	&__text {
+		&[data-clr='black'] {
+			color: var(--art-black);
+		}
+		&[data-clr='white'] {
+			color: var(--art-white);
+		}
+		&[data-clr='blue'] {
+			color: var(--art-blue);
+		}
+		&[data-clr='pink'] {
+			color: var(--art-pink);
+		}
+		&[data-font='font1'] {
+			font-family: var(--art-font-1);
+		}
+		&[data-font='font2'] {
+			font-family: var(--art-font-2);
+		}
+		&[data-font='font3'] {
+			font-family: var(--art-font-3);
+		}
+		&[data-font='font4'] {
+			font-family: var(--art-font-4);
+		}
+	}
+}
+@media screen and (max-width: 600px) {
+	.artboard {
+		&__width {
+			font-size: var(--font-size-sm);
+		}
+		&__height {
+			font-size: var(--font-size-sm);
+		}
+		&__text {
+			font-size: calc(var(--font-size-lg) + 0.7vw);
+		}
+	}
+}

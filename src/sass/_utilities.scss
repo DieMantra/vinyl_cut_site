@@ -1,0 +1,13 @@
+.hover-light {
+	transition: all 200ms ease-in-out;
+	&:hover {
+		background-color: var(--clr-black);
+		color: var(--clr-white);
+	}
+}
+.hover-dark {
+	transition: background-color 200ms ease-in-out;
+	&:hover {
+		background-color: var(--clr-black);
+	}
+}

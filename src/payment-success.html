@@ -1,0 +1,27 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Payment Success!</title>
+		<link rel="stylesheet" href="css/successPage.css" />
+	</head>
+	<body>
+		<h1 class="border-loader">Success!</h1>
+		<p>Redirecting...</p>
+		<button onclick="redirectInstant()">
+			Not Returning Home? 🤨 Click Me!
+		</button>
+		<script rel="text/javascript">
+			function redirect() {
+				setTimeout(() => {
+					window.location = 'http://localhost:3000/index.html';
+				}, '5000');
+			}
+			function redirectInstant() {
+				window.location = 'http://localhost:3000/index.html';
+			}
+			redirect();
+		</script>
+	</body>
+</html>
