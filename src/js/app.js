@@ -176,7 +176,7 @@ function invoiceObjAdd(obj, randID, i) {
 const tallyTotal = function (obj) {
 	let t = 0;
 	for (const key in obj) {
-		let totalNum = Number(obj[key].currCost);
+		let totalNum = +obj[key].currCost;
 		t += totalNum;
 	}
 	globalTotalCost = t.toFixed(2);
