@@ -99,25 +99,23 @@
 	}
 	&__button {
 		font-size: var(--checkout-font-size);
-		width: 50%;
+		width: 100%;
 		padding: var(--pad-md);
 		color: var(--clr-white);
 		background-color: var(--clr-black-20);
 		backdrop-filter: blur(10px);
 		-webkit-backdrop-filter: blur(10px);
-	}
-}
-.checkout-btn {
-	width: 50%;
-	background-color: var(--clr-green);
-	color: var(--clr-black);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: var(--checkout-font-size);
-	&--icon {
-		font-size: var(--checkout-font-size);
-		fill: currentColor;
-		margin-left: var(--marg-sm);
+
+		&--share {
+			border-left: 1px solid var(--clr-white);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			& img {
+				margin-left: 1rem;
+				filter: invert(1);
+				width: calc(var(--checkout-font-size) + 1rem);
+			}
+		}
 	}
 }

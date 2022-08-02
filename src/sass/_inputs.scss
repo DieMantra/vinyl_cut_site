@@ -13,8 +13,6 @@
 		-webkit-backdrop-filter: blur(10px);
 		box-shadow: var(--box-shadow);
 		display: grid;
-		grid-template-columns: 1;
-		grid-template-rows: repeat(4, auto);
 		gap: var(--marg-md);
 	}
 
