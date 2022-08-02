@@ -92,7 +92,7 @@ function addSize(size, cost, min, storeID) {
 }
 const costMultiplier = function (cost, multiplier) {
 	let x = cost * multiplier;
-	return x.toFixed(2);
+	return +x.toFixed(2);
 };
 function addItem(obj) {
 	if (obj.font === '' || obj.text === '' || obj.color === '' || obj.size === '')
@@ -192,8 +192,8 @@ const tallyTotal = function (obj) {
 		let totalNum = Number(obj[key].currCost);
 		t += totalNum;
 	}
-	globalTotalCost = t.toFixed(2);
-	totalCostOUT.innerHTML = `$${t.toFixed(2)}`;
+	globalTotalCost = +t.toFixed(2);
+	totalCostOUT.innerHTML = `$${+t.toFixed(2)}`;
 };
 
 function copyInvoice(obj, share = false) {
@@ -203,7 +203,7 @@ function copyInvoice(obj, share = false) {
 	for (const key in obj) {
 		if (obj.hasOwnProperty.call(obj, key)) {
 			const text = obj[key].text;
-			const totalCost = obj[key].currCost.toFixed(2);
+			const totalCost = +obj[key].currCost.toFixed(2);
 			const multiplier = obj[key].min;
 			const size = obj[key].size;
 			const color = obj[key].color;
