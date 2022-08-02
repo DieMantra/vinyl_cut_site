@@ -91,6 +91,9 @@
 		&[data-font='font4'] {
 			font-family: var(--art-font-4);
 		}
+		&[data-font='font5'] {
+			font-family: var(--art-font-5);
+		}
 	}
 }
 @media screen and (max-width: 600px) {
@@ -104,5 +107,13 @@
 		&__text {
 			font-size: calc(var(--font-size-lg) + 0.7vw);
 		}
+	}
+}
+
+footer {
+	padding: var(--pad-lg);
+
+	& .footer__header {
+		text-align: center;
 	}
 }

@@ -12,6 +12,8 @@ const inputSize = document.getElementById('inputSize');
 
 /////////////// CHECKOUT VARIABLES ///////////////
 const checkoutBtn = document.getElementById('checkoutBtn');
+const shareSection = document.querySelector('.copy__container');
+const shareBtn = document.querySelector('.copy__button--share');
 
 /////////////// OUTPUT VARIABLES ///////////////
 const totalCostOUT = document.getElementById('invoiceTotalCost');
@@ -28,9 +30,9 @@ let currOutputObj = {
 	size: '',
 	cost: 0,
 	min: 0,
-	color: inputColor.value,
-	font: inputFont.value,
-	text: inputText.value,
+	color: '',
+	font: '',
+	text: '',
 };
 let invoiceObj = {};
 /////////////// EVENT LISTENERS ///////////////
@@ -51,11 +53,19 @@ inputColor.addEventListener('change', (e) => {
 });
 inputFont.addEventListener('change', (e) => {
 	const font = e.currentTarget.value;
-	addFont(font);
+	const fontName = inputFont[inputFont.selectedIndex].textContent;
+	addFont(font, fontName);
+	addText(currOutputObj.text);
 });
 
-function addFont(font) {
-	currOutputObj.font = font;
+shareSection.addEventListener('click', function (e) {
+	const shareBtn = e.target.closest('.copy__button--share');
+	if (!shareBtn) return;
+	shareOrder();
+});
+
+function addFont(font, name) {
+	currOutputObj.font = name;
 	textOutput.dataset.font = font;
 }
 function addColor(color) {
@@ -63,8 +73,10 @@ function addColor(color) {
 	textOutput.dataset.clr = color;
 }
 function addText(text) {
-	currOutputObj.text = text;
-	textOutput.innerHTML = text;
+	if (currOutputObj.font === 'font3') {
+		textOutput.innerHTML = text.toUpperCase();
+		currOutputObj.text = text;
+	} else currOutputObj.text = textOutput.innerHTML = text;
 }
 function addSize(size, cost, min, storeID) {
 	currOutputObj.size = size;
@@ -83,7 +95,8 @@ const costMultiplier = function (cost, multiplier) {
 	return x.toFixed(2);
 };
 function addItem(obj) {
-	if (obj.text === '') return alert(`You Haven't Added Anything!`);
+	if (obj.font === '' || obj.text === '' || obj.color === '' || obj.size === '')
+		return alert(`Make Sure You Fill Out All The Options!`);
 	AddItemBtn.classList.add('flashWhite');
 	AddItemBtn.addEventListener('animationend', () => {
 		AddItemBtn.classList.remove('flashWhite');
@@ -183,14 +196,10 @@ const tallyTotal = function (obj) {
 	totalCostOUT.innerHTML = `$${t.toFixed(2)}`;
 };
 
-function copyInvoice(obj) {
+function copyInvoice(obj, share = false) {
 	let str = ``;
 	const copyBtn = document.getElementById('copyBtn');
-	copyBtn.classList.add('flashGreen');
-	copyBtn.innerHTML = 'Copied To Clipboard!';
-	setTimeout(() => {
-		copyBtn.innerHTML = 'Copy Invoice To Clipboard';
-	}, '2000');
+
 	for (const key in obj) {
 		if (obj.hasOwnProperty.call(obj, key)) {
 			const text = obj[key].text;
@@ -204,56 +213,91 @@ function copyInvoice(obj) {
 			str += `ID: ${splitKey} \n| TEXT: ${text}\n| FONT: ${font} | COLOUR: ${color}\n| SIZE: ${size} | QTY: ${multiplier}\n| TOTALCOST: $${totalCost}\n----------------------\n`;
 		}
 	}
+	if (share) return `Total Order: $${globalTotalCost}\n${str}`;
+	copyBtn.classList.add('flashGreen');
+	copyBtn.innerHTML = 'Copied To Clipboard!';
+	setTimeout(() => {
+		copyBtn.innerHTML = 'Copy Order To Clipboard';
+	}, '2000');
 	copyBtn.addEventListener('animationend', () => {
 		copyBtn.classList.remove('flashGreen');
 	});
 	navigator.clipboard.writeText(`Total Order: $${globalTotalCost}\n${str}`);
-	// alert(`Total Order: $${globalTotalCost}\n${str}`);
 }
 
-///////////////////// CHECKOUT FUNCTIONALITY /////////////////////
-checkoutBtn.addEventListener('click', (e) => {
-	let cartList = [];
-	for (const key in invoiceObj) {
-		let cartObj = {
-			id: Number(invoiceObj[key].id),
-			quantity: Number(invoiceObj[key].min),
-		};
-		cartList.push(cartObj);
-	}
-	if (cartList.length === 0) {
-		/////////// ANIMATION WHITE ///////////
-		e.currentTarget.classList.add('flashRed--2');
-		checkoutBtn.addEventListener('animationend', () => {
-			checkoutBtn.classList.remove('flashRed--2');
-		});
-		alert('The Cart Is Empty ☹️');
+const shareOrder = async function () {
+	const invoice = copyInvoice(invoiceObj, (share = true));
+	if (invoice.split('\n')[1] === '') {
+		shareBtn.textContent = `Your cart seems to be empty? 🤨`;
+		setTimeout(() => {
+			shareBtn.textContent = 'Share Order!';
+		}, '5000');
 		return;
 	}
-	/////////// ANIMATION WHITE ///////////
-	e.currentTarget.classList.add('flashWhite');
-	checkoutBtn.addEventListener('animationend', () => {
-		checkoutBtn.classList.remove('flashWhite');
-	});
+	if (navigator.share) {
+		try {
+			await navigator.share({
+				invoice,
+				title: 'Order Invoice',
+				text: `${invoice}`,
+			});
+			shareBtn.textContent = 'Shared!';
+		} catch (error) {
+			shareBtn.textContent = `Error: ${error.message}`;
+			setTimeout(() => {
+				shareBtn.textContent = 'Share Order!';
+			}, '5000');
+		}
+	} else {
+		shareBtn.textContent = `Your system doesn't support sharing these files.`;
+		setTimeout(() => {
+			shareBtn.textContent = 'Share Order!';
+		}, '5000');
+	}
+};
+///////////////////// CHECKOUT FUNCTIONALITY /////////////////////
+// checkoutBtn.addEventListener('click', (e) => {
+// 	let cartList = [];
+// 	for (const key in invoiceObj) {
+// 		let cartObj = {
+// 			id: Number(invoiceObj[key].id),
+// 			quantity: Number(invoiceObj[key].min),
+// 		};
+// 		cartList.push(cartObj);
+// 	}
+// 	if (cartList.length === 0) {
+// 		/////////// ANIMATION WHITE ///////////
+// 		e.currentTarget.classList.add('flashRed--2');
+// 		checkoutBtn.addEventListener('animationend', () => {
+// 			checkoutBtn.classList.remove('flashRed--2');
+// 		});
+// 		alert('The Cart Is Empty ☹️');
+// 		return;
+// 	}
+// 	/////////// ANIMATION WHITE ///////////
+// 	e.currentTarget.classList.add('flashWhite');
+// 	checkoutBtn.addEventListener('animationend', () => {
+// 		checkoutBtn.classList.remove('flashWhite');
+// 	});
 
-	/////////// FUNCTIONALITY ///////////
-	fetch('/create-checkout-session', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			items: cartList,
-		}),
-	})
-		.then((res) => {
-			if (res.ok) return res.json();
-			return res.json().then((json) => Promises.reject(json));
-		})
-		.then(({ url }) => {
-			window.location = url;
-		})
-		.catch((e) => {
-			console.error(e.error);
-		});
-});
+// 	/////////// FUNCTIONALITY ///////////
+// 	fetch('/create-checkout-session', {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 		},
+// 		body: JSON.stringify({
+// 			items: cartList,
+// 		}),
+// 	})
+// 		.then((res) => {
+// 			if (res.ok) return res.json();
+// 			return res.json().then((json) => Promises.reject(json));
+// 		})
+// 		.then(({ url }) => {
+// 			window.location = url;
+// 		})
+// 		.catch((e) => {
+// 			console.error(e.error);
+// 		});
+// });
