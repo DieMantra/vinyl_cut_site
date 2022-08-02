@@ -3,3 +3,4 @@ dev
 dist
 .DS_Store
 .env
+.parcel-cache
