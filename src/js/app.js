@@ -14,6 +14,9 @@ const inputSize = document.getElementById('inputSize');
 const checkoutBtn = document.getElementById('checkoutBtn');
 const shareSection = document.querySelector('.copy__container');
 const shareBtn = document.querySelector('.copy__button--share');
+const copyBtn = document.getElementById('copyBtn');
+
+let deleteArray = [];
 
 /////////////// OUTPUT VARIABLES ///////////////
 const totalCostOUT = document.getElementById('invoiceTotalCost');
@@ -114,7 +117,8 @@ function addItem(obj) {
 	// BTN
 	let btn = document.createElement('button');
 	btn.classList = 'invoice__item--btn';
-	btn.setAttribute('onclick', `clearItem(${invoiceItem.id})`);
+	btn.id = `btn${invoiceItem.id}`;
+	// btn.setAttribute('onclick', `clearItem(${invoiceItem.id})`);
 	invoiceItem.appendChild(btn);
 
 	// DIV - DESC CONTAINER
@@ -171,6 +175,14 @@ function addItem(obj) {
 		tallyTotal(invoiceObj);
 	});
 	tallyTotal(invoiceObj);
+	deleteArray = [...document.querySelectorAll('.invoice__item--btn')];
+	deleteArray.forEach((el) => {
+		el.addEventListener('click', function (e) {
+			const id = e.target.id.replace('btn', '');
+			// const element = document.getElementById(id);
+			clearItem(id);
+		});
+	});
 }
 
 function clearItem(elementID) {
@@ -255,3 +267,11 @@ const shareOrder = async function () {
 		}, '5000');
 	}
 };
+
+AddItemBtn.addEventListener('click', function () {
+	addItem(currOutputObj);
+});
+
+copyBtn.addEventListener('click', function () {
+	copyInvoice(invoiceObj);
+});
