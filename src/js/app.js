@@ -73,7 +73,7 @@ function addColor(color) {
 	textOutput.dataset.clr = color;
 }
 function addText(text) {
-	if (currOutputObj.font === 'font3') {
+	if (currOutputObj.font === 'Number Plates') {
 		textOutput.innerHTML = text.toUpperCase();
 		currOutputObj.text = text;
 	} else currOutputObj.text = textOutput.innerHTML = text;
@@ -255,49 +255,3 @@ const shareOrder = async function () {
 		}, '5000');
 	}
 };
-///////////////////// CHECKOUT FUNCTIONALITY /////////////////////
-// checkoutBtn.addEventListener('click', (e) => {
-// 	let cartList = [];
-// 	for (const key in invoiceObj) {
-// 		let cartObj = {
-// 			id: Number(invoiceObj[key].id),
-// 			quantity: Number(invoiceObj[key].min),
-// 		};
-// 		cartList.push(cartObj);
-// 	}
-// 	if (cartList.length === 0) {
-// 		/////////// ANIMATION WHITE ///////////
-// 		e.currentTarget.classList.add('flashRed--2');
-// 		checkoutBtn.addEventListener('animationend', () => {
-// 			checkoutBtn.classList.remove('flashRed--2');
-// 		});
-// 		alert('The Cart Is Empty ☹️');
-// 		return;
-// 	}
-// 	/////////// ANIMATION WHITE ///////////
-// 	e.currentTarget.classList.add('flashWhite');
-// 	checkoutBtn.addEventListener('animationend', () => {
-// 		checkoutBtn.classList.remove('flashWhite');
-// 	});
-
-// 	/////////// FUNCTIONALITY ///////////
-// 	fetch('/create-checkout-session', {
-// 		method: 'POST',
-// 		headers: {
-// 			'Content-Type': 'application/json',
-// 		},
-// 		body: JSON.stringify({
-// 			items: cartList,
-// 		}),
-// 	})
-// 		.then((res) => {
-// 			if (res.ok) return res.json();
-// 			return res.json().then((json) => Promises.reject(json));
-// 		})
-// 		.then(({ url }) => {
-// 			window.location = url;
-// 		})
-// 		.catch((e) => {
-// 			console.error(e.error);
-// 		});
-// });

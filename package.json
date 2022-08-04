@@ -2,7 +2,7 @@
 	"name": "vinyl_cut--site",
 	"version": "1.0.0",
 	"description": "Vinyl Cut Order Site",
-	"browserslist": "> 0.5%, last 3 versions, not dead",
+	"browserslist": "> 0.25%, last 5 versions, not dead",
 	"scripts": {
 		"start": "parcel ./src/index.html --dist-dir ./dev",
 		"build": "parcel build ./src/index.html --dist-dir ./dist"
