@@ -238,7 +238,8 @@ function copyInvoice(obj, share = false) {
 }
 
 const shareOrder = async function () {
-	const invoice = copyInvoice(invoiceObj, (share = true));
+	const share = true;
+	const invoice = copyInvoice(invoiceObj, share);
 	if (invoice.split('\n')[1] === '') {
 		shareBtn.textContent = `Your cart seems to be empty? 🤨`;
 		setTimeout(() => {
